@@ -42,4 +42,4 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe }) => {
     );
 };
 
-export default RecipeFull
+export default RecipeFull;

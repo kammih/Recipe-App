@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from "react";
 import Header from "./components/Header";
 import RecipeExcerpt from "./components/RecipeExcerpt";
@@ -5,14 +6,14 @@ import RecipeFull from "./components/Recipefull";
 import "./App.css";
 
 function App() {
-  const [recipes, setRecipes] = useState([])
-  const [selectedRecipe, setSelectRecipe] = useState(null)
+  const [recipes, setRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
 useEffect(() => {
   const fectchAllRecipes = async () => {
     try {
       const response = await fetch("/api/recipes");
-      if (response.ok){
+      if (response.ok) {
         const data = await response.json();
         setRecipes(data);
       } else {
@@ -27,11 +28,11 @@ useEffect(() => {
 },[]);
 
 const handleSelectRecipe = (recipe) => {
-  setSelectRecipe(recipe)
+  setSelectedRecipe(recipe);
 };
 
 const handleUnselectRecipe = () => {
-  setSelectRecipe(null);
+  setSelectedRecipe(null);
 };
   
   return (
@@ -43,12 +44,12 @@ const handleUnselectRecipe = () => {
         handleUnselectRecipe={handleUnselectRecipe}
         />
       )}
-      {selectedRecipe && (
+      {!selectedRecipe && (
       <div className='recipe-list'>
       {recipes.map((recipe) => (
         <RecipeExcerpt
          key={recipe.id}
-         recipes={recipe}
+         recipe={recipe}
          handleSelectRecipe={handleSelectRecipe}
           />
       ))}
