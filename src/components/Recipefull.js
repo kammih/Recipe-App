@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
+import ConfirmationModal from './ConfirmationModal';
 import { X } from "react-feather";
 import EditRecipeForm from './EditRecipeForm';
 
-const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleUpdateRecipe, onUpdateForm }) => {
+const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleUpdateRecipe, onUpdateForm, handleDeleteRecipe }) => {
   const [editing, setEditing] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const handleCancel = () => {
     setEditing(false);
   };
+
+  if (showConfirmationModal) {
+    return (
+      <div className="recipe-details">
+        <ConfirmationModal
+         message="Are you sure? Once it's gone, it's gone." 
+         onCancel={() => setShowConfirmationModal(false)} 
+         onConfirm={() => handleDeleteRecipe(selectedRecipe.id)}
+          />
+      </div>
+    );
+  }
 
     return (
         <div className='recipe-details'>
@@ -17,6 +31,7 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleUpdateRecipe, 
                handleCancel={handleCancel}
                handleUpdateRecipe={handleUpdateRecipe}
                onUpdateForm={onUpdateForm}
+              
               />
           ) : (
             <article>
@@ -32,7 +47,9 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleUpdateRecipe, 
               <button className='cancel-button' onClick={handleUnselectRecipe}>
                <X /> Close
               </button>
-              <button className='delete-button'>Delete</button>
+              <button className='delete-button' onClick={() => setShowConfirmationModal(true)}>
+                Delete
+                </button>
             </div>
           </header>
       
@@ -69,7 +86,9 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, handleUpdateRecipe, 
               <button className='cancel-button' onClick={handleUnselectRecipe}>
                <X /> Close
               </button>
-              <button className='delete-button'>Delete</button>
+              <button className='delete-button' onClick={() => setShowConfirmationModal(true)}>
+              Delete
+              </button>
             </div>
           </header>
       

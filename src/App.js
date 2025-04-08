@@ -111,6 +111,24 @@ const handleUpdateRecipe = async (e, selectedRecipe) => {
   setSelectedRecipe(null);
 };
 
+const handleDeleteRecipe = async (recipeId) => {
+  try {
+    const response = await fetch(`/api/recipes/${selectedRecipe.id}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    setRecipes(recipes.filter((recipe) => recipe.id !== recipeId));
+    setSelectedRecipe(null);
+    console.log("Recipe deleted successfully!");
+  } else {
+    console.error("Oops - could not delete recipe! Try again.")
+  }
+} catch (e) {
+  console.error("Something went wrong during the request:", e)
+ }
+};
+
 const onUpdateForm = (e, action = "new") => {
   const { name, value } = e.target;
   if (action === "update"){
@@ -157,6 +175,7 @@ const showRecipeForm = () => {
         selectedRecipe={selectedRecipe}
         handleUnselectRecipe={handleUnselectRecipe}
         onUpdateForm={onUpdateForm}
+        handleDeleteRecipe={handleDeleteRecipe}
         />
       )}
       {!selectedRecipe && (
