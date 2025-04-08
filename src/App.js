@@ -61,7 +61,7 @@ const showRecipeForm = () => {
   
   return (
     <div className='recipe-app'>
-      <Header showReceipeForm={showRecipeForm} />
+      <Header showRecipeForm={showRecipeForm} />
       {showNewRecipeForm && (
        <NewRecipeForm
         newRecipe={newRecipe}
